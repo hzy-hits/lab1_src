@@ -3,4 +3,5 @@
 !*.cpp
 !*.mk
 !Makefile
+!*.sh
 !.gitignore
