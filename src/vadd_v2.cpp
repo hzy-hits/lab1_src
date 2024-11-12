@@ -2,6 +2,9 @@
 
 #define DATA_SIZE 32768
 
+// apt_int could handle 512 bits and 16 32-bit integers
+// divide the data into 16 blocks 
+#define BLOCK_SIZE (DATA_SIZE / 16)
 // Fill This Part !!!
 // Please #define BLOCK_SIZE !!!
 
@@ -40,6 +43,8 @@ void compute(const block_t a_buf[BLOCK_SIZE], const block_t b_buf[BLOCK_SIZE],
     copy_b_buf: for (int i = 0; i < BLOCK_SIZE; i++) {
         for (int j = 0; j < 16; j++) {
 // Fill This Part !!!
+            ap_int<32> val = b_buf[i](32 * (j + 1) - 1, 32 * j);
+            b_buf_normal[i * 16 + j] = (int) val;
 
 
         }

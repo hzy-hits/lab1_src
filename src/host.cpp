@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include <cstring>
-
+#include <time.h>
 // XRT includes
 #include "experimental/xrt_bo.h"
 #include "experimental/xrt_device.h"
@@ -71,7 +71,9 @@ int main(int argc, char** argv) {
     //////////////////////////////////////
     // Fill This Part !!!
     //////////////////////////////////////
-
+    double kernel_time_in_sec = 0;
+    std::chrono::duration<double> kernel_time(0);
+    auto kernel_start = std::chrono::high_resolution_clock::now();
     //Execution of the kernel
     auto run = krnl(bo_out, bo0, bo1);
     run.wait();
@@ -79,6 +81,10 @@ int main(int argc, char** argv) {
     //////////////////////////////////////
     // Fill This Part !!!
     //////////////////////////////////////
+    auto kernel_end = std::chrono::high_resolution_clock::now();
+    kernel_time = std::chrono::duration<double>(kernel_end - kernel_start);
+    kernel_time_in_sec = kernel_time.count();
+    std::cout << "Execution time = " << kernel_time_in_sec << std::endl;
 
 
     // Get the output data from the device;
